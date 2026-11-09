@@ -9,11 +9,11 @@
   else root.Othello = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   const SIZE = 8;
-  const RING_POINTS = [10, 5, 2, 1];   // 바깥 줄부터 안쪽으로 (모서리 4칸은 따로 20점)
+  const RING_POINTS = [10, 1, 1, 1];   // 바깥 줄부터 안쪽으로 (모서리 4칸은 따로 100점)
 
   function cellPoints(r, c) {
     const fromEdgeR = Math.min(r, SIZE - 1 - r), fromEdgeC = Math.min(c, SIZE - 1 - c);
-    if (fromEdgeR === 0 && fromEdgeC === 0) return 20;
+    if (fromEdgeR === 0 && fromEdgeC === 0) return 100;
     return RING_POINTS[Math.min(fromEdgeR, fromEdgeC)];
   }
 

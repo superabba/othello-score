@@ -5,27 +5,27 @@ const assert = require('node:assert');
 const O = require('./othello.js');
 
 const EXPECTED = [
-  [20, 10, 10, 10, 10, 10, 10, 20],
-  [10, 5, 5, 5, 5, 5, 5, 10],
-  [10, 5, 2, 2, 2, 2, 5, 10],
-  [10, 5, 2, 1, 1, 2, 5, 10],
-  [10, 5, 2, 1, 1, 2, 5, 10],
-  [10, 5, 2, 2, 2, 2, 5, 10],
-  [10, 5, 5, 5, 5, 5, 5, 10],
-  [20, 10, 10, 10, 10, 10, 10, 20],
+  [100, 10, 10, 10, 10, 10, 10, 100],
+  [10, 1, 1, 1, 1, 1, 1, 10],
+  [10, 1, 1, 1, 1, 1, 1, 10],
+  [10, 1, 1, 1, 1, 1, 1, 10],
+  [10, 1, 1, 1, 1, 1, 1, 10],
+  [10, 1, 1, 1, 1, 1, 1, 10],
+  [10, 1, 1, 1, 1, 1, 1, 10],
+  [100, 10, 10, 10, 10, 10, 10, 100],
 ];
 
-test('칸 점수표가 합의한 그림과 같고 전체는 448점', () => {
+test('칸 점수표가 합의한 그림과 같고 전체는 676점', () => {
   let total = 0;
   for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) { assert.strictEqual(O.cellPoints(r, c), EXPECTED[r][c], `${r},${c}`); total += EXPECTED[r][c]; }
-  assert.strictEqual(total, 448);
+  assert.strictEqual(total, 676);
 });
 
 test('흑백 합계, 돌 개수, 승자, 무승부', () => {
   const allB = O.scoreBoard('B'.repeat(64));
-  assert.deepStrictEqual(allB, { black: 448, white: 0, blackCount: 64, whiteCount: 0, winner: 'black' });
+  assert.deepStrictEqual(allB, { black: 676, white: 0, blackCount: 64, whiteCount: 0, winner: 'black' });
   const corner = O.scoreBoard('W' + '.'.repeat(62) + 'B');
-  assert.strictEqual(corner.black, 20); assert.strictEqual(corner.white, 20); assert.strictEqual(corner.winner, 'draw');
+  assert.strictEqual(corner.black, 100); assert.strictEqual(corner.white, 100); assert.strictEqual(corner.winner, 'draw');
   // 돌 수가 적어도 모서리를 가진 쪽이 이긴다
   const fewer = O.scoreBoard('W' + '.'.repeat(26) + 'BBBB' + '.'.repeat(33));
   assert.strictEqual(fewer.blackCount, 4); assert.strictEqual(fewer.winner, 'white');
