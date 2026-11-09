@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>오델로 점수 계산기</title>
+<meta name="description" content="끝난 오델로 판을 찍으면 칸별 점수로 승자를 계산합니다.">
+<meta name="theme-color" content="#1F7A4D">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <h1 class="brand">오델로 점수 계산기</h1>
+    <nav class="subtabs" role="tablist" aria-label="화면">
+      <button role="tab" data-k="score" class="on" aria-selected="true">점수 계산</button>
+      <button role="tab" data-k="history" aria-selected="false">경기 기록<span class="n" id="otCount"></span></button>
+    </nav>
+      <div data-subsec="score">
+        <div class="card ot-card" id="otStart">
+          <h2>끝난 판을 비춰 주세요</h2>
+          <p class="ot-hint">판 전체가 들어오게, 가능하면 바로 위에서 찍어 주세요. 점수는 칸마다 다르게 계산돼요.</p>
+          <div class="ot-acts">
+            <label class="ot-btn ok">사진 찍기<input class="ot-file" id="otShot" type="file" accept="image/*" capture="environment"></label>
+            <label class="ot-btn">앨범에서 고르기<input class="ot-file" id="otPick" type="file" accept="image/*"></label>
+            <button class="ot-btn" id="otLiveOpen">실시간 카메라</button>
+          </div>
+          <p class="ot-hint warn" id="otStartMsg" hidden style="margin:12px 0 0"></p>
+        </div>
+        <div class="card ot-card" id="otLive" hidden>
+          <div class="ot-stage"><video id="otVideo" playsinline muted autoplay></video><canvas class="ot-overlay" id="otLiveOv"></canvas></div>
+          <p class="ot-hint" id="otLiveMsg" aria-live="polite">카메라를 준비하고 있어요.</p>
+          <div class="ot-score" id="otLiveScore"></div>
+          <div class="ot-acts"><button class="ot-btn ok" id="otFreeze" disabled>이 판으로 확정</button><button class="ot-btn" id="otLiveClose">닫기</button></div>
+        </div>
+        <div class="ot-review" id="otReview" hidden>
+          <div class="card ot-card ot-wide">
+            <div class="ot-score" id="otScore"></div>
+            <p class="ot-result" id="otResult" aria-live="polite"></p>
+            <div class="ot-names">
+              <label>흑 선수<input id="otBlack" maxlength="40" placeholder="이름" autocomplete="off"></label>
+              <label>백 선수<input id="otWhite" maxlength="40" placeholder="이름" autocomplete="off"></label>
+            </div>
+            <div class="ot-acts"><button class="ot-btn ok" id="otSave">경기 저장</button><button class="ot-btn" id="otAgain">다시 찍기</button></div>
+          </div>
+          <div class="card ot-card">
+            <h3>인식된 판</h3>
+            <p class="ot-hint">칸을 누르면 빈칸 → 흑 → 백 순서로 바뀌어요. 노란 칸은 한 번 더 봐 주세요.</p>
+            <div class="ot-board" id="otBoard"></div>
+          </div>
+          <div class="card ot-card">
+            <h3>판 위치</h3>
+            <p class="ot-hint" id="otQuadMsg"></p>
+            <div class="ot-stage"><canvas id="otPhoto"></canvas></div>
+          </div>
+        </div>
+      </div>
+      <div data-subsec="history" hidden><div id="otGames"></div></div>
+  </main>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script src="othello.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

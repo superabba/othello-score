@@ -1,0 +1,7 @@
+{
+  "name": "othello-score",
+  "private": true,
+  "scripts": {
+    "test": "node --test othello.test.cjs"
+  }
+}
